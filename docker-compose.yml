@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+
+  db:
+    image: mysql
+    container_name: $DB_CONTAINER_NAME
+    environment:
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    command:
+      --default-authentication-plugin=mysql_native_password
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: $DB_ADMIN_CONTAINER_NAME
+    environment:
+      PMA_HOST: $DB_CONTAINER_NAME
+      PMA_PORT: $DB_PORT
+      PMA_USER: root
+      PMA_PASSWORD: $DB_ROOT_PASSWORD
+    ports:
+      - 8080:80
+    depends_on:
+      - db
