@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -20,4 +21,7 @@ public class User extends AbstractEntity {
     private String email;
 
     private String password;
+
+    @OneToMany
+    private Set<Role> roles;
 }
