@@ -10,6 +10,7 @@ import com.example.corailbackend.entity.Reservable;
 import com.example.corailbackend.entity.materiel.etatmateriel.EtatMateriel;
 import com.example.corailbackend.entity.session.Session;
 import com.example.corailbackend.exception.CannotReserveException;
+import com.example.corailbackend.exception.LibelleVideException;
 
 import lombok.Data;
 
@@ -21,6 +22,25 @@ public class Materiel extends AbstractEntity implements Reservable {
 
 	@OneToOne
 	EtatMateriel etat;
+
+	public Materiel() {
+
+	}
+
+	public Materiel(String libelle) throws LibelleVideException {
+		if(libelle == null || libelle.isEmpty()) {
+			throw new LibelleVideException();
+		}
+		this.libelle = libelle;
+	}
+
+	public Materiel(String libelle, EtatMateriel etat) throws LibelleVideException {
+		if(libelle == null || libelle.isEmpty()) {
+			throw new LibelleVideException();
+		}
+		this.libelle = libelle;
+		this.etat = etat;
+	}
 
 	@Override
 	public void reserver(Session session) throws CannotReserveException {
@@ -56,6 +76,11 @@ public class Materiel extends AbstractEntity implements Reservable {
 		return result;
 	}
 
-
+	public void setLibelle(String libelle) throws LibelleVideException {
+		if(libelle == null || libelle.isEmpty()) {
+			throw new LibelleVideException();
+		}
+		this.libelle = libelle;
+	}
 
 }
