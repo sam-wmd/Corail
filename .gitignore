@@ -33,6 +33,7 @@ CorailBackEnd/.nb-gradle/
 CorailBackEnd/build/
 CorailBackEnd/**/src/main/**/build/
 CorailBackEnd/**/src/test/**/build/
+CorailBackEnd/bin/
 
 ### VS Code ###
 CorailBackEnd/vscode/
