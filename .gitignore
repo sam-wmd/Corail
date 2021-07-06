@@ -85,3 +85,5 @@ CorailFrontEnd/.DS_Store
 CorailFrontEnd/Thumbs.db
 
 /.metadata/
+/data
+.project
