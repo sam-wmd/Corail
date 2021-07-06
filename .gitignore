@@ -1,0 +1,86 @@
+CorailBackEnd/HELP.md
+CorailBackEnd/target/
+CorailBackEnd/.mvn/wrapper/maven-wrapper.jar
+CorailBackEnd/**/src/main/**/target/
+CorailBackEnd/**/src/test/**/target/
+
+### STS ###
+CorailBackEnd/.apt_generated
+CorailBackEnd/.classpath
+CorailBackEnd/.factorypath
+CorailBackEnd/.project
+CorailBackEnd/.settings
+CorailBackEnd/.springBeans
+CorailBackEnd/.sts4-cache
+
+### IntelliJ IDEA ###
+CorailBackEnd/.idea
+CorailBackEnd/*.iws
+CorailBackEnd/*.iml
+CorailBackEnd/*.ipr
+
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+CorailBackEnd/nbproject/private/
+CorailBackEnd/nbbuild/
+CorailBackEnd/dist/
+CorailBackEnd/nbdist/
+CorailBackEnd/.nb-gradle/
+CorailBackEnd/build/
+CorailBackEnd/**/src/main/**/build/
+CorailBackEnd/**/src/test/**/build/
+
+### VS Code ###
+CorailBackEnd/vscode/
+
+##FRONTEND###
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+CorailFrontEnd/dist
+CorailFrontEnd/tmp
+CorailFrontEnd/out-tsc
+# Only exists if Bazel was run
+CorailFrontEnd/bazel-out
+
+# dependencies
+CorailFrontEnd/node_modules
+
+# profiling files
+CorailFrontEnd/chrome-profiler-events*.json
+
+# IDEs and editors
+CorailFrontEnd/.idea
+CorailFrontEnd/.project
+CorailFrontEnd/.classpath
+CorailFrontEnd/.c9/
+CorailFrontEnd/*.launch
+CorailFrontEnd/.settings/
+CorailFrontEnd/*.sublime-workspace
+
+# IDE - VSCode
+CorailFrontEnd/.vscode/*
+CorailFrontEnd/.vscode/settings.json
+CorailFrontEnd/.vscode/tasks.json
+CorailFrontEnd/.vscode/launch.json
+CorailFrontEnd/.vscode/extensions.json
+CorailFrontEnd/.history/*
+
+# misc
+CorailFrontEnd/.sass-cache
+CorailFrontEnd/connect.lock
+CorailFrontEnd/coverage
+CorailFrontEnd/libpeerconnection.log
+CorailFrontEnd/npm-debug.log
+CorailFrontEnd/yarn-error.log
+CorailFrontEnd/testem.log
+CorailFrontEnd/typings
+
+# System Files
+CorailFrontEnd/.DS_Store
+CorailFrontEnd/Thumbs.db
+
