@@ -1,7 +1,7 @@
-package com.example.corailbackend.controllers;
+package com.example.corailbackend.controller;
 
-import com.example.corailbackend.crud.UserRepository;
-import com.example.corailbackend.entities.User;
+import com.example.corailbackend.repository.UserRepository;
+import com.example.corailbackend.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
