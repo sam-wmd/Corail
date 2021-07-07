@@ -7,7 +7,7 @@ import com.example.corailbackend.entity.user.User;
 
 public interface UserRepository extends AbstractEntityRepository<User> {
 
-	@Query("select u.lastname, u.name, u.email, u.username, u.roles from User as u where u.id = ?1")
+	@Query("select u.lastname, u.name, u.email, u.username, u.role from User as u where u.id = ?1")
 	User getUserById(@Param("id") int id);
 
 	User findByUsername(String username);

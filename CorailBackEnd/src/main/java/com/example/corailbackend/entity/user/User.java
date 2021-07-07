@@ -1,6 +1,7 @@
 package com.example.corailbackend.entity.user;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import com.example.corailbackend.entity.AbstractEntity;
 
@@ -28,6 +29,7 @@ public class User extends AbstractEntity {
 	private String password;
 
 	@Getter @Setter
+	@OneToOne
 	private Role role;
 
 	public User() {
