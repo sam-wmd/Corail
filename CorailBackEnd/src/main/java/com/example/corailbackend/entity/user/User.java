@@ -1,9 +1,6 @@
 package com.example.corailbackend.entity.user;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
 import com.example.corailbackend.entity.AbstractEntity;
 
@@ -31,20 +28,19 @@ public class User extends AbstractEntity {
 	private String password;
 
 	@Getter @Setter
-	@OneToMany
-	private Set<Role> roles;
+	private Role role;
 
 	public User() {
 
 	}
 
-	public User(String name, String lastname, String username, String email, String password, Set<Role> roles) {
+	public User(String name, String lastname, String username, String email, String password, Role role) {
 		this.name = name;
 		this.lastname = lastname;
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.roles = roles;
+		this.role = role;
 	}
 
 	public User(String name, String lastname, String username, String email, String password) {

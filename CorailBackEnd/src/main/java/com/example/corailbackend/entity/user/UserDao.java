@@ -1,7 +1,5 @@
 package com.example.corailbackend.entity.user;
 
-import java.util.Set;
-
 public class UserDao extends User {
 
 	User user;
@@ -41,8 +39,8 @@ public class UserDao extends User {
 	}
 
 	@Override
-	public Set<Role> getRoles() {
-		return user.getRoles();
+	public Role getRole() {
+		return user.getRole();
 	}
 
 }
