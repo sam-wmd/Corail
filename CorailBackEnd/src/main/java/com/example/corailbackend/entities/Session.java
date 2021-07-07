@@ -15,11 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="SESSION")
-public class Session {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+public class Session extends AbstractEntity{
 
     private LocalDateTime debut;
     private LocalDateTime fin;

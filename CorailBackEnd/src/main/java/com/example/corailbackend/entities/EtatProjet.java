@@ -1,5 +1,6 @@
 package com.example.corailbackend.entities;
 
+import com.example.corailbackend.enums.EtatProjetEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +14,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="PROJET")
-public class Projet extends AbstractEntity{
-    private String nom;
-    private String description;
-    private int temps;
+@Table(name="ETAT_PROJET")
+public class EtatProjet extends AbstractEntity{
+    private String etatProjetLibelle;
 
-    @OneToOne
-    private EtatProjet etatProjet;
 }

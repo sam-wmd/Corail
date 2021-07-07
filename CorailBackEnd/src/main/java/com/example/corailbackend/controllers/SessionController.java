@@ -1,6 +1,10 @@
 package com.example.corailbackend.controllers;
 
+import com.example.corailbackend.entities.Materiel;
+import com.example.corailbackend.entities.Projet;
 import com.example.corailbackend.entities.Session;
+import com.example.corailbackend.repo.MaterielRepository;
+import com.example.corailbackend.repo.ProjetRepository;
 import com.example.corailbackend.repo.SessionRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,10 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 
 @RequestMapping("/api/v0/sessions")
@@ -17,11 +24,25 @@ import java.util.List;
 public class SessionController {
 
     @Autowired
+    private ProjetRepository projetRepository;
+
+    @Autowired
     private SessionRepository sessionRepository;
+
+    @Autowired
+    private MaterielRepository materielRepository;
 
     @GetMapping("ping")
     public String getPing(){
         return "Ping ---- Hello from SessionController -------";
+    }
+
+
+
+    private LocalDateTime formatToLocalDateTime(String str){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+        return dateTime;
     }
 
 
@@ -31,20 +52,54 @@ public class SessionController {
         return ResponseEntity.ok(liste);
     }
 
+    /**
+     *
+     * @param req
+     * Exemple
+     * {
+     *     "debut" : "2021-07-08 17:00",
+     *     "fin" : "2021-07-08 18:00",
+     *     "projetId" : "15"
+     * }
+     * @return JSON Array of all Sessions
+     */
     @PostMapping()
-    public ResponseEntity<List<Session>> postSession(@RequestBody Session session){
+    public ResponseEntity<List<Session>> postSession(@RequestBody Map<String,String> req){
+
+        Session session = new Session();
+
+        session.setDebut(formatToLocalDateTime(req.get("debut")));
+        session.setFin(formatToLocalDateTime(req.get("fin")));
+
+        int projetId = Integer.parseInt(req.get("projetId"));
+        Projet projet = projetRepository.getById(projetId);
+
+        session.setProjet(projet);
         sessionRepository.save(session);
         return this.getAllSessions();
     }
 
+    /**
+     *
+     * @param req
+     * @return JSON Object of updated Session
+     *
+     * Cannot modify Project once session is created
+     * Exemple
+     * {
+     *     "debut" : "2021-07-08 17:00",
+     *     "fin" : "2021-07-08 18:00",
+     * }
+     *
+     */
     @PutMapping("/{sessionId}")
-    public ResponseEntity<Session> modifySession(@PathVariable("sessionId") int sessionId, @RequestBody Session modifiedSession) throws ResourceNotFoundException {
-        Session session = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new ResourceNotFoundException("Session non trouvée avec l'id " + sessionId + " !"));
+    public ResponseEntity<Session> modifySession(@PathVariable("sessionId") int sessionId, @RequestBody Map<String,String> req) throws ResourceNotFoundException {
 
-        session.setDebut(modifiedSession.getDebut());
-        session.setFin(modifiedSession.getFin());
-        session.setProjet(modifiedSession.getProjet());
+
+        Session session = sessionRepository.getById(sessionId);
+
+        if (req.containsKey("debut")) session.setDebut(formatToLocalDateTime(req.get("debut")));
+        if (req.containsKey("fin"))  session.setFin(formatToLocalDateTime(req.get("fin")));
 
         final Session updatedSession = sessionRepository.save(session);
 
@@ -52,13 +107,73 @@ public class SessionController {
 
     }
 
+    /**
+     *
+     * @param sessionId
+     * @param req
+     * @return
+     * @throws ResourceNotFoundException
+     *
+     *
+     * Exemple request
+     * {
+     *     "id" : "18" --> materielId
+     * }
+     */
+    @PostMapping("/{sessionId}/materiel")
+    public ResponseEntity<Session> addMaterielToSession(@PathVariable("sessionId") int sessionId, @RequestBody Map<String,String> req) throws ResourceNotFoundException {
+
+        int materielId = Integer.parseInt(req.get("id"));
+        Materiel materielToAdd = materielRepository.getById(materielId);
+
+        Session session = sessionRepository.getById(sessionId);
+
+        session.getMaterielList().add(materielToAdd);
+
+        final Session updatedSession = sessionRepository.save(session);
+
+        return ResponseEntity.ok(updatedSession);
+
+    }
+
+    /**
+     *
+     * @param sessionId
+     * @param materielId
+     * @return
+     * @throws ResourceNotFoundException
+     *
+     * NO REQUEST BODY
+     */
+    @DeleteMapping("/{sessionId}/{materielId}")
+    public ResponseEntity<Session> removeMaterielFromSession(@PathVariable("sessionId") int sessionId, @PathVariable("materielId") int materielId) throws ResourceNotFoundException {
+
+        Materiel materielToRemove = materielRepository.getById(materielId);
+
+        Session session = sessionRepository.getById(sessionId);
+
+        session.getMaterielList().remove(materielToRemove);
+
+        final Session updatedSession = sessionRepository.save(session);
+
+        return ResponseEntity.ok(updatedSession);
+
+    }
+
+    /**
+     *
+     * @param sessionId
+     * @return JSON STRING OBJECT
+     * @throws ResourceNotFoundException
+     *
+     * NO REQUEST BODY
+     */
     @DeleteMapping("/{sessionId}")
-    public String deleteSession(@PathVariable("sessionId") int sessionId) throws ResourceNotFoundException{
-        Session session = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new ResourceNotFoundException("Session non trouvée avec l'id " + sessionId + " !"));
+    public ResponseEntity<String> deleteSession(@PathVariable("sessionId") int sessionId) throws ResourceNotFoundException{
+        Session session = sessionRepository.getById(sessionId);
 
         sessionRepository.delete(session);
-        return "Session" + session.toString() + "deleted: " + Boolean.TRUE;
+        return ResponseEntity.ok("DELETE SUCCESS");
     }
 
 

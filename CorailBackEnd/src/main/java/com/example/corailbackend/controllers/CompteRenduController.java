@@ -1,7 +1,9 @@
 package com.example.corailbackend.controllers;
 
 import com.example.corailbackend.entities.CompteRendu;
+import com.example.corailbackend.entities.Session;
 import com.example.corailbackend.repo.CompteRenduRepository;
+import com.example.corailbackend.repo.SessionRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
-@RequestMapping("/api/v0/compte_rendu")
+@RequestMapping("/api/v0/comptes_rendus")
 @RestController
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +23,9 @@ public class CompteRenduController {
 
     @Autowired
     private CompteRenduRepository compteRenduRepository;
+
+    @Autowired
+    private SessionRepository sessionRepository;
 
     @GetMapping("ping")
     public String getPing() {
@@ -34,32 +40,42 @@ public class CompteRenduController {
     }
 
     @PostMapping()
-    public ResponseEntity<List<CompteRendu>> postCompteRendu(@RequestBody CompteRendu compteRendu) {
-        compteRenduRepository.save(compteRendu);
+    public ResponseEntity<List<CompteRendu>> postCompteRendu(@RequestBody Map<String, String> req) {
+        CompteRendu newCompteRendu = new CompteRendu();
+
+        newCompteRendu.setTitre(req.get("titre"));
+        newCompteRendu.setContenu(req.get("contenu"));
+
+//      find and set Session
+        int sessionId = Integer.parseInt(req.get("sessionId"));
+
+        Session session = sessionRepository.getById(sessionId);
+
+        newCompteRendu.setSession(session);
+
+        compteRenduRepository.save(newCompteRendu);
         return this.getAllCompteRendus();
     }
 
     @PutMapping("/{compteRenduId}")
     public ResponseEntity<CompteRendu> modifyCompteRendu(@PathVariable(value = "compteRenduId") int compteRenduId,
-                                                   @RequestBody CompteRendu modifiedCompteRendu) throws ResourceNotFoundException {
-        CompteRendu compteRendu = compteRenduRepository.findById(compteRenduId)
-                .orElseThrow(() -> new ResourceNotFoundException("Compte Rendu non trouvé avec l'id " + compteRenduId + " !"));
+                                                         @RequestBody Map<String, String> req) throws ResourceNotFoundException {
+        CompteRendu compteRendu = compteRenduRepository.getById(compteRenduId);
 
 
-        compteRendu.setTitre(modifiedCompteRendu.getTitre());
-        compteRendu.setContenu(modifiedCompteRendu.getContenu());
+        if (req.containsKey("titre"))  compteRendu.setTitre(req.get("titre"));
+        if (req.containsKey("contenu"))  compteRendu.setContenu(req.get("contenu"));
         final CompteRendu updatedCompteRendu = compteRenduRepository.save(compteRendu);
 
         return ResponseEntity.ok(updatedCompteRendu);
     }
 
     @DeleteMapping("/{compteRenduId}")
-    public String deleteCompteRendu(@PathVariable("compteRenduId") int compteRenduId) throws ResourceNotFoundException{
-        CompteRendu compteRendu = compteRenduRepository.findById(compteRenduId)
-                .orElseThrow(() -> new ResourceNotFoundException("Compte Rendu non trouvée avec l'id " + compteRenduId + " !"));
+    public ResponseEntity<String> deleteCompteRendu(@PathVariable("compteRenduId") int compteRenduId) throws ResourceNotFoundException {
+        CompteRendu compteRendu = compteRenduRepository.getById(compteRenduId);
 
         compteRenduRepository.delete(compteRendu);
-        return "Compte Rendu" + compteRendu.toString() + "deleted: " + Boolean.TRUE;
+        return ResponseEntity.ok("DELETE SUCCESS");
     }
 
 }
