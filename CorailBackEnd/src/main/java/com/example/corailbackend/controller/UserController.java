@@ -5,6 +5,7 @@ import com.example.corailbackend.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -21,8 +22,8 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public Set<User> getUsers() {
-        return userRepository.getUsers();
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
