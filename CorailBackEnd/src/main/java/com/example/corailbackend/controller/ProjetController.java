@@ -1,9 +1,9 @@
-package com.example.corailbackend.controllers;
+package com.example.corailbackend.controller;
 
-import com.example.corailbackend.entities.EtatProjet;
-import com.example.corailbackend.entities.Projet;
-import com.example.corailbackend.repo.EtatProjetRepository;
-import com.example.corailbackend.repo.ProjetRepository;
+import com.example.corailbackend.entity.projet.etat_projet.EtatProjet;
+import com.example.corailbackend.entity.projet.Projet;
+import com.example.corailbackend.repository.EtatProjetRepository;
+import com.example.corailbackend.repository.ProjetRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;

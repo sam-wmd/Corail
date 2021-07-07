@@ -1,9 +1,8 @@
-package com.example.corailbackend.controllers;
+package com.example.corailbackend.controller;
 
-import com.example.corailbackend.entities.EtatProjet;
-import com.example.corailbackend.entities.Projet;
+import com.example.corailbackend.entity.projet.etat_projet.EtatProjet;
 import com.example.corailbackend.enums.EtatProjetEnum;
-import com.example.corailbackend.repo.EtatProjetRepository;
+import com.example.corailbackend.repository.EtatProjetRepository;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;

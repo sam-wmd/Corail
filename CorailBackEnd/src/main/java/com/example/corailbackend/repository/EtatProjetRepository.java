@@ -1,8 +1,6 @@
-package com.example.corailbackend.repo;
+package com.example.corailbackend.repository;
 
-import com.example.corailbackend.entities.CompteRendu;
-import com.example.corailbackend.entities.EtatProjet;
-import com.example.corailbackend.entities.Projet;
+import com.example.corailbackend.entity.projet.etat_projet.EtatProjet;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 

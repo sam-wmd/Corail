@@ -1,6 +1,6 @@
-package com.example.corailbackend.repo;
+package com.example.corailbackend.repository;
 
-import com.example.corailbackend.entities.Session;
+import com.example.corailbackend.entity.session.Session;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

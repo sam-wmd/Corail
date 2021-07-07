@@ -1,9 +1,9 @@
-package com.example.corailbackend.controllers;
+package com.example.corailbackend.controller;
 
-import com.example.corailbackend.entities.CompteRendu;
-import com.example.corailbackend.entities.Session;
-import com.example.corailbackend.repo.CompteRenduRepository;
-import com.example.corailbackend.repo.SessionRepository;
+import com.example.corailbackend.entity.compte_rendu.CompteRendu;
+import com.example.corailbackend.entity.session.Session;
+import com.example.corailbackend.repository.CompteRenduRepository;
+import com.example.corailbackend.repository.SessionRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

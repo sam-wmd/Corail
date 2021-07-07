@@ -1,11 +1,11 @@
-package com.example.corailbackend.controllers;
+package com.example.corailbackend.controller;
 
-import com.example.corailbackend.entities.Materiel;
-import com.example.corailbackend.entities.Projet;
-import com.example.corailbackend.entities.Session;
-import com.example.corailbackend.repo.MaterielRepository;
-import com.example.corailbackend.repo.ProjetRepository;
-import com.example.corailbackend.repo.SessionRepository;
+import com.example.corailbackend.entity.materiel.Materiel;
+import com.example.corailbackend.entity.projet.Projet;
+import com.example.corailbackend.entity.session.Session;
+import com.example.corailbackend.repository.MaterielRepository;
+import com.example.corailbackend.repository.ProjetRepository;
+import com.example.corailbackend.repository.SessionRepository;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
