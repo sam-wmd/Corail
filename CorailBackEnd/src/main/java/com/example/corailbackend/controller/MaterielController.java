@@ -31,8 +31,17 @@ public class MaterielController {
 	EtatMaterielRepository etatMaterielRepository;
 
 	@GetMapping
-	public List<Materiel> getPing() {
+	public List<Materiel> getMateriels() {
 		return materielRepository.findAll();
+	}
+
+	@GetMapping(path="/{id}")
+	public Materiel getMateriel(@PathVariable("id") String id) {
+		Optional<Materiel> m = materielRepository.findById(Integer.parseInt(id));
+		if(m.isPresent()) {
+			return m.get();
+		}
+		return null;
 	}
 
 	@PostMapping(consumes = "application/json", produces = "application/json")
