@@ -1,6 +1,7 @@
 package com.example.corailbackend.controller;
 
 import com.example.corailbackend.entity.compte_rendu.CompteRendu;
+import com.example.corailbackend.entity.projet.Projet;
 import com.example.corailbackend.entity.session.Session;
 import com.example.corailbackend.repository.CompteRenduRepository;
 import com.example.corailbackend.repository.SessionRepository;
@@ -39,6 +40,24 @@ public class CompteRenduController {
         return ResponseEntity.ok(liste);
     }
 
+    @GetMapping("/{compteRenduId}")
+    public ResponseEntity<CompteRendu> getCompteRenduById(@PathVariable(value = "compteRenduId") int compteRenduId) {
+        CompteRendu compteRendu = compteRenduRepository.getById(compteRenduId);
+        return ResponseEntity.ok(compteRendu);
+    }
+
+    /**
+     *
+     * @param req
+     * @return
+     *
+     * Exemple:
+     * {
+     *     "titre" : "Premiere Session Robots",
+     *     "contenu" : "Conception du prototype",
+     *     "sessionId" : "21"
+     * }
+     */
     @PostMapping()
     public ResponseEntity<List<CompteRendu>> postCompteRendu(@RequestBody Map<String, String> req) {
         CompteRendu newCompteRendu = new CompteRendu();

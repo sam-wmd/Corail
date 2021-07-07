@@ -52,6 +52,12 @@ public class SessionController {
         return ResponseEntity.ok(liste);
     }
 
+    @GetMapping("/{sessionId}")
+    public ResponseEntity<Session> getSessionById(@PathVariable(value = "sessionId") int sessionId) {
+        Session session = sessionRepository.getById(sessionId);
+        return ResponseEntity.ok(session);
+    }
+
     /**
      *
      * @param req

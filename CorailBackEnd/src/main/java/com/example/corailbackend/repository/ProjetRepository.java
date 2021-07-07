@@ -13,7 +13,7 @@ public interface ProjetRepository extends CrudRepository<Projet, Integer> {
     default Projet getById(int projetId) {
 
         Projet projet = this.findById(projetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Projet non trouvée avec l'id " + projetId + " !"));
+                .orElseThrow(() -> new ResourceNotFoundException("Projet non trouvé avec l'id " + projetId + " !"));
         return projet;
     }
 }
